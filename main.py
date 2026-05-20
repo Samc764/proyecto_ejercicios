@@ -1,15 +1,13 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
-# ──────────────────────────────────────────────
-# EJERCICIO 9 – /temperatura/{grados}
-# Clasifica la temperatura en: Frío, Templado, Caluroso o Extremo
-# ──────────────────────────────────────────────
 @app.get("/temperatura/{grados}", response_class=HTMLResponse)
 async def temperatura(request: Request, grados: float):
     if grados < 10:
@@ -31,14 +29,8 @@ async def temperatura(request: Request, grados: float):
     )
 
 
-# ──────────────────────────────────────────────
-# EJERCICIO 21 – /vocales/{frase}
-# Recibe una frase y la convierte en lista de letras.
-# La plantilla resalta las vocales con <strong>.
-# ──────────────────────────────────────────────
 @app.get("/vocales/{frase:path}", response_class=HTMLResponse)
 async def vocales(request: Request, frase: str):
-    # Convertir la frase en lista de letras (incluyendo espacios)
     letras = list(frase)
 
     return templates.TemplateResponse(
@@ -51,11 +43,6 @@ async def vocales(request: Request, frase: str):
     )
 
 
-# ──────────────────────────────────────────────
-# EJERCICIO 33 – /pendientes
-# Muestra tareas separadas en "pendientes" y "completadas".
-# Usa for-else para mostrar mensaje si una sección queda vacía.
-# ──────────────────────────────────────────────
 @app.get("/pendientes", response_class=HTMLResponse)
 async def pendientes(request: Request):
     tareas = [

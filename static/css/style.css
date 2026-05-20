@@ -1,0 +1,268 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f0f4f8;
+    color: #333;
+    padding: 2rem;
+}
+h1 { color: #2c3e50; margin-bottom: 1rem; }
+.contenedor {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+nav a {
+    margin-right: 1rem;
+    color: #3498db;
+    text-decoration: none;
+}
+nav { margin-bottom: 1.5rem; }
+
+/* Pendientes */
+.secciones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+@media (max-width: 600px) {
+    .secciones { grid-template-columns: 1fr; }
+}
+
+.seccion {
+    border-radius: 12px;
+    padding: 1.25rem;
+    border: 2px solid;
+}
+.seccion-pendientes {
+    background: #fff7ed;
+    border-color: #fed7aa;
+}
+.seccion-completadas {
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+}
+
+.seccion h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.seccion-pendientes h2 { color: #c2410c; }
+.seccion-completadas h2 { color: #15803d; }
+
+.tarea {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.6rem 0.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+.tarea-pendiente {
+    background: white;
+    border: 1px solid #fdba74;
+    color: #431407;
+}
+.tarea-completada {
+    background: white;
+    border: 1px solid #86efac;
+    color: #14532d;
+    text-decoration: line-through;
+    opacity: 0.8;
+}
+.icono { flex-shrink: 0; }
+
+.vacia {
+    text-align: center;
+    padding: 1.5rem;
+    color: #94a3b8;
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.resumen {
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    background: #f1f5f9;
+    border-radius: 10px;
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.9rem;
+    color: #475569;
+    flex-wrap: wrap;
+}
+.resumen strong { color: #0f172a; }
+
+/* Temperatura */
+.tarjeta-temp {
+    text-align: center;
+    padding: 2.5rem;
+    border-radius: 16px;
+    margin-top: 1rem;
+    font-size: 1.2rem;
+}
+.grados {
+    font-size: 4rem;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+.categoria {
+    font-size: 1.8rem;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+.descripcion {
+    font-size: 1rem;
+    opacity: 0.85;
+}
+/* Colores según categoría */
+.frio       { background: #dbeafe; color: #1e40af; border: 2px solid #93c5fd; }
+.templado   { background: #dcfce7; color: #166534; border: 2px solid #86efac; }
+.caluroso   { background: #fff7ed; color: #9a3412; border: 2px solid #fdba74; }
+.extremo    { background: #fee2e2; color: #991b1b; border: 2px solid #fca5a5; }
+
+.ejemplos {
+    margin-top: 2rem;
+}
+.ejemplos h3 {
+    margin-bottom: 0.75rem;
+    color: #555;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.ejemplos a {
+    display: inline-block;
+    margin: 0.3rem;
+    padding: 0.4rem 1rem;
+    background: #f1f5f9;
+    border-radius: 999px;
+    color: #334155;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border: 1px solid #e2e8f0;
+    transition: background 0.2s;
+}
+.ejemplos a:hover { background: #e2e8f0; }
+
+/* Vocales */
+.frase-original {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+    color: #475569;
+}
+.frase-original span {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.letras-titulo {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #94a3b8;
+    margin-bottom: 0.75rem;
+}
+
+.letras {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 2rem;
+}
+.letra {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: 2px solid #e2e8f0;
+    background: #f8fafc;
+    color: #64748b;
+    font-family: 'Courier New', monospace;
+}
+/* Vocales resaltadas */
+.vocal {
+    background: #fef3c7;
+    border-color: #f59e0b;
+    color: #92400e;
+    transform: scale(1.08);
+    box-shadow: 0 2px 6px rgba(245,158,11,0.3);
+}
+/* Espacios */
+.espacio {
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+
+.estadisticas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+.stat {
+    flex: 1;
+    min-width: 140px;
+    background: #f1f5f9;
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+}
+.stat .num {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0f172a;
+    display: block;
+}
+.stat .label {
+    font-size: 0.8rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.formulario {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+}
+.formulario h3 {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 0.75rem;
+}
+.formulario a {
+    display: inline-block;
+    margin: 0.25rem;
+    padding: 0.4rem 1rem;
+    background: #eff6ff;
+    color: #1d4ed8;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 0.88rem;
+    border: 1px solid #bfdbfe;
+}
+
+/* Reglas para destacar estadísticas de vocales */
+.stat.highlight { background:#fef3c7; }
+.stat.highlight .num { color:#92400e; }
