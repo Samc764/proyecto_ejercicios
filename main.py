@@ -80,4 +80,11 @@ async def pendientes(request: Request):
     )
 
 
-handler = Mangum(app)
+
+import os
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8090, reload=True)
+else:
+    handler = Mangum(app)
