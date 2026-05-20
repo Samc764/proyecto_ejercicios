@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block titulo %}Temperatura - Ejercicio 9{% endblock %}
+
+{% block encabezado %}🌡️ Clasificador de Temperatura{% endblock %}
+
+{% block contenido %}
+<style>
+    .tarjeta-temp {
+        text-align: center;
+        padding: 2.5rem;
+        border-radius: 16px;
+        margin-top: 1rem;
+        font-size: 1.2rem;
+    }
+    .grados {
+        font-size: 4rem;
+        font-weight: bold;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+    .categoria {
+        font-size: 1.8rem;
+        font-weight: 600;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+    .descripcion {
+        font-size: 1rem;
+        opacity: 0.85;
+    }
+    /* Colores según categoría */
+    .frio       { background: #dbeafe; color: #1e40af; border: 2px solid #93c5fd; }
+    .templado   { background: #dcfce7; color: #166534; border: 2px solid #86efac; }
+    .caluroso   { background: #fff7ed; color: #9a3412; border: 2px solid #fdba74; }
+    .extremo    { background: #fee2e2; color: #991b1b; border: 2px solid #fca5a5; }
+
+    .ejemplos {
+        margin-top: 2rem;
+    }
+    .ejemplos h3 {
+        margin-bottom: 0.75rem;
+        color: #555;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    .ejemplos a {
+        display: inline-block;
+        margin: 0.3rem;
+        padding: 0.4rem 1rem;
+        background: #f1f5f9;
+        border-radius: 999px;
+        color: #334155;
+        text-decoration: none;
+        font-size: 0.9rem;
+        border: 1px solid #e2e8f0;
+        transition: background 0.2s;
+    }
+    .ejemplos a:hover { background: #e2e8f0; }
+</style>
+
+{# Determinar clase CSS y emoji según categoría #}
+{% if categoria == "Frío" %}
+    {% set clase = "frio" %}
+    {% set emoji = "🥶" %}
+{% elif categoria == "Templado" %}
+    {% set clase = "templado" %}
+    {% set emoji = "😊" %}
+{% elif categoria == "Caluroso" %}
+    {% set clase = "caluroso" %}
+    {% set emoji = "🥵" %}
+{% else %}
+    {% set clase = "extremo" %}
+    {% set emoji = "🔥" %}
+{% endif %}
+
+<div class="tarjeta-temp {{ clase }}">
+    <span class="grados">{{ grados }}°C</span>
+    <span class="categoria">{{ emoji }} {{ categoria }}</span>
+    <span class="descripcion">
+        {% if categoria == "Frío" %}
+            Temperatura menor a 10°C. ¡Abrígate bien!
+        {% elif categoria == "Templado" %}
+            Entre 10°C y 24°C. Clima agradable.
+        {% elif categoria == "Caluroso" %}
+            Entre 25°C y 34°C. Hidratación importante.
+        {% else %}
+            35°C o más. Condiciones extremas, ten cuidado.
+        {% endif %}
+    </span>
+</div>
+
+<div class="ejemplos">
+    <h3>Probar con otros valores</h3>
+    <a href="/temperatura/-5">-5°C</a>
+    <a href="/temperatura/5">5°C</a>
+    <a href="/temperatura/18">18°C</a>
+    <a href="/temperatura/30">30°C</a>
+    <a href="/temperatura/40">40°C</a>
+</div>
+{% endblock %}

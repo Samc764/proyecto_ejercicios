@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block titulo %}Tareas Pendientes - Ejercicio 33{% endblock %}
+
+{% block encabezado %}✅ Gestor de Tareas{% endblock %}
+
+{% block contenido %}
+<style>
+    .secciones {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+    @media (max-width: 600px) {
+        .secciones { grid-template-columns: 1fr; }
+    }
+
+    .seccion {
+        border-radius: 12px;
+        padding: 1.25rem;
+        border: 2px solid;
+    }
+    .seccion-pendientes {
+        background: #fff7ed;
+        border-color: #fed7aa;
+    }
+    .seccion-completadas {
+        background: #f0fdf4;
+        border-color: #bbf7d0;
+    }
+
+    .seccion h2 {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .seccion-pendientes h2 { color: #c2410c; }
+    .seccion-completadas h2 { color: #15803d; }
+
+    .tarea {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+        padding: 0.6rem 0.75rem;
+        margin-bottom: 0.5rem;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        line-height: 1.4;
+    }
+    .tarea-pendiente {
+        background: white;
+        border: 1px solid #fdba74;
+        color: #431407;
+    }
+    .tarea-completada {
+        background: white;
+        border: 1px solid #86efac;
+        color: #14532d;
+        text-decoration: line-through;
+        opacity: 0.8;
+    }
+    .icono { flex-shrink: 0; }
+
+    .vacia {
+        text-align: center;
+        padding: 1.5rem;
+        color: #94a3b8;
+        font-style: italic;
+        font-size: 0.9rem;
+    }
+
+    .resumen {
+        margin-top: 1.5rem;
+        padding: 1rem 1.25rem;
+        background: #f1f5f9;
+        border-radius: 10px;
+        display: flex;
+        gap: 1.5rem;
+        font-size: 0.9rem;
+        color: #475569;
+        flex-wrap: wrap;
+    }
+    .resumen strong { color: #0f172a; }
+</style>
+
+{# Contadores para el resumen #}
+{% set cnt_pend = namespace(n=0) %}
+{% set cnt_comp = namespace(n=0) %}
+{% for t in tareas %}
+    {% if not t.completada %}{% set cnt_pend.n = cnt_pend.n + 1 %}{% endif %}
+    {% if t.completada %}{% set cnt_comp.n = cnt_comp.n + 1 %}{% endif %}
+{% endfor %}
+
+<div class="secciones">
+
+    {# ——— SECCIÓN PENDIENTES ——— #}
+    <div class="seccion seccion-pendientes">
+        <h2>
+            <span>⏳</span> Pendientes
+        </h2>
+
+        {% for tarea in tareas if not tarea.completada %}
+            <div class="tarea tarea-pendiente">
+                <span class="icono">○</span>
+                {{ tarea.descripcion }}
+            </div>
+        {% else %}
+            <div class="vacia">No hay pendientes 🎉</div>
+        {% endfor %}
+    </div>
+
+    {# ——— SECCIÓN COMPLETADAS ——— #}
+    <div class="seccion seccion-completadas">
+        <h2>
+            <span>✅</span> Completadas
+        </h2>
+
+        {% for tarea in tareas if tarea.completada %}
+            <div class="tarea tarea-completada">
+                <span class="icono">✓</span>
+                {{ tarea.descripcion }}
+            </div>
+        {% else %}
+            <div class="vacia">No hay completadas aún</div>
+        {% endfor %}
+    </div>
+
+</div>
+
+<div class="resumen">
+    <span>📋 Total: <strong>{{ tareas | length }}</strong></span>
+    <span>⏳ Pendientes: <strong>{{ cnt_pend.n }}</strong></span>
+    <span>✅ Completadas: <strong>{{ cnt_comp.n }}</strong></span>
+</div>
+
+{% endblock %}

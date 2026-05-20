@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block titulo %}Vocales - Ejercicio 21{% endblock %}
+
+{% block encabezado %}🔤 Resaltador de Vocales{% endblock %}
+
+{% block contenido %}
+<style>
+    .frase-original {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 1rem 1.5rem;
+        margin-bottom: 1.5rem;
+        font-size: 1.05rem;
+        color: #475569;
+    }
+    .frase-original span {
+        font-weight: 600;
+        color: #1e293b;
+    }
+
+    .letras-titulo {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #94a3b8;
+        margin-bottom: 0.75rem;
+    }
+
+    .letras {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-bottom: 2rem;
+    }
+    .letra {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 8px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        border: 2px solid #e2e8f0;
+        background: #f8fafc;
+        color: #64748b;
+        font-family: 'Courier New', monospace;
+    }
+    /* Vocales resaltadas */
+    .vocal {
+        background: #fef3c7;
+        border-color: #f59e0b;
+        color: #92400e;
+        transform: scale(1.08);
+        box-shadow: 0 2px 6px rgba(245,158,11,0.3);
+    }
+    /* Espacios */
+    .espacio {
+        background: transparent;
+        border-color: transparent;
+        color: transparent;
+    }
+
+    .estadisticas {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+    }
+    .stat {
+        flex: 1;
+        min-width: 140px;
+        background: #f1f5f9;
+        border-radius: 10px;
+        padding: 1rem;
+        text-align: center;
+    }
+    .stat .num {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #0f172a;
+        display: block;
+    }
+    .stat .label {
+        font-size: 0.8rem;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .formulario {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e2e8f0;
+    }
+    .formulario h3 {
+        font-size: 0.9rem;
+        color: #64748b;
+        margin-bottom: 0.75rem;
+    }
+    .formulario a {
+        display: inline-block;
+        margin: 0.25rem;
+        padding: 0.4rem 1rem;
+        background: #eff6ff;
+        color: #1d4ed8;
+        border-radius: 999px;
+        text-decoration: none;
+        font-size: 0.88rem;
+        border: 1px solid #bfdbfe;
+    }
+</style>
+
+{# Calcular estadísticas en la plantilla #}
+{% set vocales_set = ['a','e','i','o','u'] %}
+{% set total_vocales = namespace(n=0) %}
+{% set total_consonantes = namespace(n=0) %}
+
+{% for letra in letras %}
+    {% if letra.lower() in vocales_set %}
+        {% set total_vocales.n = total_vocales.n + 1 %}
+    {% elif letra != ' ' %}
+        {% set total_consonantes.n = total_consonantes.n + 1 %}
+    {% endif %}
+{% endfor %}
+
+<div class="frase-original">
+    Frase analizada: <span>"{{ frase }}"</span>
+</div>
+
+<p class="letras-titulo">Letra por letra (vocales resaltadas en amarillo):</p>
+<div class="letras">
+    {% for letra in letras %}
+        {% if letra == ' ' %}
+            <div class="letra espacio">_</div>
+        {% elif letra.lower() in ['a','e','i','o','u'] %}
+            <strong class="letra vocal">{{ letra }}</strong>
+        {% else %}
+            <div class="letra">{{ letra }}</div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<div class="estadisticas">
+    <div class="stat">
+        <span class="num">{{ letras | length }}</span>
+        <span class="label">Total letras</span>
+    </div>
+    <div class="stat" style="background:#fef3c7;">
+        <span class="num" style="color:#92400e;">{{ total_vocales.n }}</span>
+        <span class="label">Vocales</span>
+    </div>
+    <div class="stat">
+        <span class="num">{{ total_consonantes.n }}</span>
+        <span class="label">Consonantes</span>
+    </div>
+</div>
+
+<div class="formulario">
+    <h3>Probar con otras frases:</h3>
+    <a href="/vocales/hola%20mundo">hola mundo</a>
+    <a href="/vocales/python%20es%20genial">python es genial</a>
+    <a href="/vocales/jinja2%20templates">jinja2 templates</a>
+    <a href="/vocales/aeiou">aeiou</a>
+</div>
+{% endblock %}
