@@ -11,8 +11,8 @@ app = FastAPI()
 BASE_DIR = Path(__file__).resolve().parent
 
 
-templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
-app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="static")
+templates = Jinja2Templates(directory=str((BASE_DIR / "templates").resolve()))
+app.mount("/static", StaticFiles(directory=str((BASE_DIR / "static").resolve())), name="static")
 
 
 @app.get("/", response_class=HTMLResponse)
