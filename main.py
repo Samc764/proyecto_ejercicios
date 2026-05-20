@@ -8,6 +8,14 @@ templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
+@app.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+    return templates.TemplateResponse(
+        "index.html",
+        {"request": request}
+    )
+
+
 @app.get("/temperatura/{grados}", response_class=HTMLResponse)
 async def temperatura(request: Request, grados: float):
     if grados < 10:
